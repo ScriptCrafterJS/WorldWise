@@ -9,6 +9,7 @@ CitiesProvider.propTypes = {
 function CitiesProvider({ children }) {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentCity, setCurrentCity] = useState({});
 
   useEffect(function () {
     async function fetchCities() {
@@ -25,11 +26,47 @@ function CitiesProvider({ children }) {
     }
     fetchCities();
   }, []);
+
+  async function getCity(cityId) {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${BASE_URL}/cities/${cityId}`);
+      const city = await response.json();
+      setCurrentCity(city);
+    } catch (err) {
+      console.log(err.message());
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const city = await response.json();
+      setCities((cities) => [...cities, city]); //to make the local in sync with the remote
+    } catch (err) {
+      console.log(err.message());
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <CitiesContext.Provider
       value={{
         cities,
         isLoading,
+        currentCity,
+        getCity,
+        createCity,
       }}
     >
       {children}

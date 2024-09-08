@@ -1,10 +1,16 @@
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styles from "./Form.module.css";
 import Button from "./Button";
-
+import BackButton from "./BackButton";
+import { useURLPosition } from "../hooks/useURLPosition";
+import Message from "./Message";
+import Spinner from "./Spinner";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useCities } from "../contexts/CitiesProvider";
+import { useNavigate } from "react-router-dom";
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -13,16 +19,81 @@ export function convertToEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
-function Form() {
-  const navigate = useNavigate();
+const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
+function Form() {
   const [cityName, setCityName] = useState("");
-  // const [country, setCountry] = useState("");
+  const [isLoadingGeocoding, setIsLoadingGeocoding] = useState(false);
+  const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
+  const [lat, lng] = useURLPosition();
+  const [emoji, setEmoji] = useState("");
+  const [geocodingError, setGeocodingError] = useState(null);
+  const { createCity, isLoading } = useCities();
+  const navigate = useNavigate();
+
+  useEffect(
+    function () {
+      async function fetchCityData() {
+        if (!lat && !lng) return; //means don't make a request
+
+        setIsLoadingGeocoding(true);
+        setGeocodingError("");
+        try {
+          if (lat && lng) {
+            const response = await fetch(
+              `${BASE_URL}?latitude=${lat}&longitude=${lng}`
+            );
+            const data = await response.json();
+            if (!data.countryCode)
+              throw new Error(
+                "This doesn't seem to be a city, click somewhere else 😉"
+              );
+
+            setCityName(data.city || data.locality || "");
+            setCountry(data.countryName);
+            setEmoji(convertToEmoji(data.countryCode));
+          }
+        } catch (err) {
+          setGeocodingError(err.message);
+        } finally {
+          setIsLoadingGeocoding(false);
+        }
+      }
+      fetchCityData();
+    },
+    [lat, lng]
+  );
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!lat || !lng) return;
+
+    const newCity = {
+      cityName,
+      country,
+      emoji,
+      date,
+      notes,
+      position: { lat, lng },
+    };
+    await createCity(newCity); //since its an async function we need to use await to make sure the navigate down here works right wellS
+    navigate("/app/cities");
+  }
+
+  if (isLoadingGeocoding) return <Spinner />;
+
+  if ((!lat, !lng))
+    return <Message message={"Please click somewhere on the map"} />;
+
+  if (geocodingError) return <Message message={geocodingError} />;
 
   return (
-    <form className={styles.form}>
+    <form
+      className={`${styles.form} ${isLoading ? styles.loading : ""}`}
+      onSubmit={handleSubmit}
+    >
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
@@ -30,16 +101,18 @@ function Form() {
           onChange={(e) => setCityName(e.target.value)}
           value={cityName}
         />
-        {/* <span className={styles.flag}>{emoji}</span> */}
+        <span className={styles.flag}>{emoji}</span>
       </div>
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        <input
+        {/* <input
           id="date"
           onChange={(e) => setDate(e.target.value)}
           value={date}
-        />
+        /> */}
+
+        <DatePicker selected={date} onChange={(date) => setDate(date)} />
       </div>
 
       <div className={styles.row}>
@@ -53,15 +126,7 @@ function Form() {
 
       <div className={styles.buttons}>
         <Button type="primary">Add</Button>
-        <Button
-          type="back"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(-1); //this will make me go back on step
-          }}
-        >
-          &larr; Back
-        </Button>
+        <BackButton />
       </div>
     </form>
   );
