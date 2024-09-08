@@ -14,10 +14,10 @@ const formatDate = (date) =>
   }).format(new Date(date));
 export default function CityItem({ city }) {
   const { cityName, emoji, date, id, position } = city;
-  const { currentCity } = useCities();
+  const { currentCity, deleteCity } = useCities();
   function handleDeleteCity(e) {
     e.preventDefault();
-    console.log("TEST");
+    deleteCity(id);
   }
   return (
     <li>
