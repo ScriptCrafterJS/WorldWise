@@ -35,6 +35,18 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Rome",
+      "country": "Italy",
+      "emoji": "🇮🇹",
+      "date": "2024-09-08T12:22:12.941Z",
+      "notes": "one of the best cities so far",
+      "position": {
+        "lat": "41.89445464983683",
+        "lng": "12.48046875"
+      },
+      "id": 98443198
     }
   ]
 }

@@ -55,7 +55,9 @@ function reducer(state, action) {
       };
   }
 }
-
+CitiesProvider.propTypes = {
+  children: PropTypes.node,
+};
 function CitiesProvider({ children }) {
   const [{ cities, isLoading, currentCity, error }, dispatch] = useReducer(
     reducer,
