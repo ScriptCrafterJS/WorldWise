@@ -1,42 +1,6 @@
 {
   "cities": [
     {
-      "cityName": "Lisbon",
-      "country": "Portugal",
-      "emoji": "🚩",
-      "date": "2027-10-31T15:59:59.138Z",
-      "notes": "My favorite city so far!",
-      "position": {
-        "lat": 38.727881642324164,
-        "lng": -9.140900099907554
-      },
-      "id": 73930385
-    },
-    {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🚩",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": 17806751
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🚩",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 98443197
-    },
-    {
       "cityName": "Rome",
       "country": "Italy",
       "emoji": "🇮🇹",
@@ -47,6 +11,90 @@
         "lng": "12.48046875"
       },
       "id": 98443198
+    },
+    {
+      "cityName": "Ramallah",
+      "country": "Palestine, State of",
+      "emoji": "🇵🇸",
+      "date": "2024-09-16T19:33:07.199Z",
+      "notes": "",
+      "position": {
+        "lat": "31.943230363892905",
+        "lng": "35.27160644531251"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "Arish",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2024-09-16T19:33:19.864Z",
+      "notes": "",
+      "position": {
+        "lat": "31.123601961801555",
+        "lng": "33.80630493164063"
+      },
+      "id": 98443200
+    },
+    {
+      "cityName": "Ash Shiḩaniyah",
+      "country": "Qatar",
+      "emoji": "🇶🇦",
+      "date": "2024-09-16T19:33:29.316Z",
+      "notes": "",
+      "position": {
+        "lat": "25.246649076892087",
+        "lng": "51.17431640625001"
+      },
+      "id": 98443201
+    },
+    {
+      "cityName": "An Nabhaniyah",
+      "country": "Saudi Arabia",
+      "emoji": "🇸🇦",
+      "date": "2024-09-16T19:33:32.523Z",
+      "notes": "",
+      "position": {
+        "lat": "25.50469060481775",
+        "lng": "42.25341796875"
+      },
+      "id": 98443202
+    },
+    {
+      "cityName": "Umm an Nasan",
+      "country": "Bahrain",
+      "emoji": "🇧🇭",
+      "date": "2024-09-16T19:34:46.749Z",
+      "notes": "",
+      "position": {
+        "lat": "26.17641437116523",
+        "lng": "50.38330078125001"
+      },
+      "id": 98443203
+    },
+    {
+      "cityName": "Binghamton",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2024-09-16T19:34:57.197Z",
+      "notes": "",
+      "position": {
+        "lat": "42.10239611923023",
+        "lng": "-75.87158203125001"
+      },
+      "id": 98443204
+    },
+    {
+      "cityName": "Hartford",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2024-09-16T19:35:42.481Z",
+      "notes": "",
+      "position": {
+        "lat": "41.77270766397002",
+        "lng": "-72.61247261261371"
+      },
+      "id": 98443205
     }
   ]
 }

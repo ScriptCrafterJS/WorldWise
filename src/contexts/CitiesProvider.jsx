@@ -9,10 +9,6 @@ import PropTypes from "prop-types";
 const CitiesContext = createContext();
 const BASE_URL = "http://localhost:4000";
 
-CitiesProvider.propTypes = {
-  children: PropTypes.node,
-};
-
 const initialState = {
   cities: [],
   isLoading: false,
